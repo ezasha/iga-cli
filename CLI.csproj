@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>igArchiveExtractorCLI</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <AssemblyName>iga-cli</AssemblyName>
+    <SelfContained>false</SelfContained>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SevenZip" Version="19.0.0.0" />
+    <PackageReference Include="HashDepot" Version="2.0.3" />
+    <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
+    <PackageReference Include="BCnEncoder.Net.ImageSharp" Version="1.0.4" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" />
+  </ItemGroup>
+
+  <!-- Include only non-UI files for CLI -->
+  <ItemGroup>
+    <Compile Include="Program_CLI.cs" />
+    <Compile Include="StreamHelper.cs" />
+    <Compile Include="IGA/IGA_Version.cs" />
+    
+    <!-- IGA format support -->
+    <Compile Include="IGA/IGA_Descriptor.cs" />
+    <Compile Include="IGA/IGA_File.cs" />
+    <Compile Include="IGA/IGA_Structure.cs" />
+    
+    <!-- GX2 texture support -->
+    <Compile Include="GX2/**/*.cs" />
+  </ItemGroup>
+
+  <!-- Exclude resource files and Windows Forms dependencies -->
+  <ItemGroup>
+    <EmbeddedResource Remove="**/*.resx" />
+  </ItemGroup>
+
+</Project>

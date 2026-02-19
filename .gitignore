@@ -1,0 +1,21 @@
+# Exclude visual studio files
+
+.vs
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Exclude compiled files
+
+bin
+obj
+
+# Exclude game files 
+
+*.arc
+*.bld
+*.pak
+
+# Rider and other Jetbrains IDE's Cache files
+.idea/

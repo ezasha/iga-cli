@@ -1,190 +1,104 @@
-# igArchiveExtractor CLI - Python Integration Guide
+# igArchiveExtractor
 
-## Quick Start
+![igArchiveExtractor Logo](https://raw.githubusercontent.com/NefariousTechSupport/igArchiveExtractor/no-msbuild/igae.ico)
 
-### 1. Build the CLI
+**igArchiveExtractor IS DISCONTINUED, THIS REPO WILL REMAIN OPEN UNTIL A GOOD ALTERNATIVE ARRIVES, NO NEW FEATURES WILL BE ADDED**
 
-```bash
-dotnet build CLI.csproj -c Release
-```
+A GUI tool for extracting files from .arc/.bld/.pak files from various games made with the Vicarious Visions Alchemy game engine
 
-This creates `iga-cli.exe` in `bin/Release/net6.0/win-x64/`
+Join The [Skylander Reverse Engineering Discord Server](https://discord.gg/evFbgBpmMf) for help and updates!
 
-### 2. Use from Python
 
-```python
-from iga_wrapper import IGAExtractor
+## Usage
 
-# Initialize  extractor
-extractor = IGAExtractor()
+### General Use:
 
-# List files in archive
-files = extractor.list_files("game.arc")
-for f in files[:10]:
-    print(f"{f['index']:4d} {f['size']:10d} bytes {f['path']}")
+* Start the program
+* Load a file using the "File > Load File", then select the game and platform you wish to open
+* Navigate to the file you want to extract and click "Extract File" or just click "Extract All"
+* Select an output folder
+* Wait
 
-# Extract all files
-result = extractor.extract("game.arc", "./output")
-print(f"Extracted {result['success']} files in {result['time_elapsed']:.2f}s")
+### To Rebuild IGA Files:
 
-# Extract single file
-extractor.extract_single("game.arc", 5, "./output")
-```
+* Once a file is laoded, extract all to the same folder the IGA is in.
+* Navigate to File > Build.
+* From the build window you can save the settings as a CSV, once you save you can close IGAE.
+* Edit the extracted files with your desired changes.
+* Once happy with your edits, reopen IGAE, navigate to File > Build, and load the CSV.
+* Click Build, select your destination, and you'll have an IGA file.
 
-### 3. Command-line Usage
+### To Extract Textures:
 
-```bash
-python iga_wrapper.py list game.arc
-python iga_wrapper.py extract game.arc ./output
-python iga_wrapper.py extract-single game.arc 5 ./output
-python iga_wrapper.py list game.arc --format json | jq '.[] | select(.path | contains("txt"))'
-```
+* Once a file is loaded, find a texture or level.bld and double click it, alternatively, open an igz/level.bld directly.
+* You'll be presented with the igz viewer, find an object of type igImage2 and you'll see a preview and an option to extract.
 
-## Features
+### To Replace Textures:
 
-✅ **Fast extraction** - No UI overhead, pure extraction logic  
-✅ **Multiple formats** - Supports .arc, .bld, .pak, .iga files  
-✅ **Progress tracking** - Real-time extraction progress  
-✅ **Python integration** - Easy to use from Python scripts  
-✅ **Command-line** - Can also use from PowerShell/CMD  
+* Once a file is loaded, find a texture or level.bld and double click it, alternatively, open an igz/level.bld directly.
+* You'll be presented with the igz viewer, find an object of type igImage2 and you'll see a preview and an option to replace.
+* If you opened an iga initially, save the igz and replace the original level.bld and rebuild.
+* If you opened an igz directly, your changes save automatically.
 
-## Limitations
+If you're on mac or linux use wine but idk if that works
 
-❌ **No IGZ/texture support** - CLI optimized for archive extraction only  
-❌ **Windows only** - .NET 6.0 win-x64 target  
+### Features & Games:
+| Game | Platform | Extracting IGA Files | Rebuilding IGA Files | Texture Extraction | Texture Replacement |
+|---|---|---|---|---|---|
+| Skylanders Spyro's Adventure | 3DS | ❌ | ❌ | ❌ | ❌ |
+| | Wii | ✅ | ❌ | ✅ | ✅ |
+| | Wii U | ✅ | ✅ | ✅ | ✅ |
+| Skylanders Giants | 3DS | ❌ | ❌ | ❌ | ❌ |
+| | Wii | ✅ | ✅ | ✅ | ✅ |
+| | Wii U | ✅ | ✅ | ✅ | ✅ |
+| | PS3 | ✅ | ✅ | ✅ | ✅ |
+| | Xbox 360 | ✅ | ✅ | ❓ | ❓ |
+| Skylanders Swap Force | 3DS | ❌ | ❌ | ❌ | ❌ |
+| | Wii | ✅ | ❓ | ✅ | ✅ |
+| | Wii U | ✅ | ✅ | ✅ | ✅ |
+| | PS3 | ✅ | ✅ | ✅ | ✅ |
+| | PS4 | ✅ | ❓ | ❓ | ❓ |
+| | Xbox 360 | ❌ | ❌ | ❓ | ❓ |
+| Skylanders Trap Team | 3DS | ❌ | ❌ | ❌ | ❌ |
+| | Wii | ✅ | ✅ | ✅ | ✅ |
+| | Wii U | ✅ | ✅ | ✅ | ✅ |
+| | PS3 | ✅ | ✅ | ✅ | ✅ |
+| | PS4 | ✅ | ✅ | ❓ | ❓ |
+| | Xbox 360 | ✅ | ✅ | ❓ | ❓ |
+| Skylanders Superchargers | Wii U | ✅ | ✅ | ✅ | ✅ |
+| | PS3 | ✅ | ✅ | ✅ | ✅ |
+| | PS4 | ✅ | ✅ | ❓ | ❓ |
+| | Xbox 360 | ❌ | ❌ | ❓ | ❓ |
+| | 32 bit iOS | ✅ | ❓ | ❓ | ❓ |
+| | 64 bit iOS | ✅ | ❓ | ❌ | ❌ |
+| Skylanders Imaginators | PS4 | ✅ | ❌ | ❌ | ❌ |
+| | PS3 | ✅ | ✅ | ✅ | ✅ |
+| | Xbox 360 | ❌ | ❌ | ❌ | ❌ |
+| | Wii U | ✅ | ✅ | ✅ | ✅ |
+| | Switch | ✅ | ❌ | ❌ | ❌ |
 
-For texture extraction from IGZ files, use the GUI version.
+* select Trap Team Home Console for SSC iOS and select Imaginators PS4 for Imaginators Switch
 
-## Performance
+## Building
+### Prerequisites
+* Mac OS: no
+* Linux: no
+* Windows: dotnet 5.0 + visual studio
 
-Comparison with GUI version:
-- **GUI**: 100% (baseline, includes UI initialization overhead)
-- **CLI**: 40-50% faster (no Windows Forms)
-- **Extraction rate**: ~5-15 MB/s depending on compression
+### How to Build
+* Open the sln file in visual studio, and press ctrl + b to build, alternatively press f5 to build (if neccessary) and run
 
-Example:
-```
-Game file: 450 MB archive with 1200+ files
-GUI time: ~45 seconds
-CLI time: ~20 seconds (2.25x faster)
-```
+## Credits
+* DTZxPorter: Figured out the HashSearch and CalculateSlop functions
+* AdventureT: Texture Extraction code adapted from [IGZModelConverter](https://github.com/AdventureT/IgzModelConverter). Figured out that the games use FNV1A32 on their hashes
+* LG-RZ: Explained certain aspects of IGA + IGZ files. Provided final RVTB ReadPackedInt code
+* Drawdler: Drew the logo :)
+* KillzXGaming: Referenced [IGA_PAK.cs](https://github.com/KillzXGaming/Switch-Toolbox/blob/master/File_Format_Library/FileFormats/CrashBandicoot/IGA_PAK.cs) when making this
+* SixLabours: ImageSharp library was used for texture previews and also texture importing
+* Nominom: BCnEncoder was used for texture previews and also texture importing 
 
-## Python API Reference
+## To Do
 
-### IGAExtractor
-
-```python
-class IGAExtractor:
-    def __init__(self, cli_exe: Optional[str] = None, timeout: int = 600):
-        """Initialize extractor"""
-    
-    def list_files(self, archive_path: str) -> List[Dict]:
-        """
-        List files in archive
-        
-        Returns:
-            [{'index': 0, 'size': 1024, 'path': 'file.txt'}, ...]
-        """
-    
-    def extract(self, archive_path: str, output_dir: str, 
-                verbose: bool = True) -> Dict[str, any]:
-        """
-        Extract all files from archive
-        
-        Returns:
-            {'success': 1200, 'failed': 0, 'time_elapsed': 20.5}
-        """
-    
-    def extract_single(self, archive_path:str, file_index: int, 
-                       output_dir: str) -> bool:
-        """Extract a single file by index"""
-```
-
-## Supported Archive Formats
-
-| Format | Extension | Description |
-|--------|-----------|-------------|
-| IGA v4 | .arc | Skylanders (PS4/Switch) archives |
-| IGA v5 | .bld | Skylanders (Wii) build files |
-| IGA v6 | .pak | Skylanders (SuperChargers) packages |
-| IGA v7 | .iga | Generic Insomniac archives |
-
-## Advanced Usage
-
-### Batch Extraction
-
-```python
-from pathlib import Path
-import glob
-
-extractor = IGAExtractor()
-
-# Extract all .arc files in directory
-for archive in glob.glob("*.arc"):
-    print(f"Extracting {archive}...")
-    result = extractor.extract(archive, "./extracted")
-    print(f"  → {result['success']} files, {result['time_elapsed']:.1f}s")
-```
-
-### Selective Extraction
-
-```python
-# List and extract only texture files
-files = extractor.list_files("game.arc")
-texture_files = [f for f in files if f['path'].endswith(('.png', '.dds'))]
-
-print(f"Found {len(texture_files)} textures")
-for f in texture_files[:5]:
-    extractor.extract_single("game.arc", f['index'], "./textures")
-```
-
-### Error Handling
-
-```python
-try:
-    extractor = IGAExtractor()
-    result = extractor.extract("game.arc", "./output")
-    
-    if result['failed'] > 0:
-        print(f"⚠️  {result['failed']} files failed to extract")
-        
-except FileNotFoundError as e:
-    print(f"File not found: {e}")
-except TimeoutError as e:
-    print(f"Extraction timeout: {e}")
-except Exception as e:
-    print(f"Error: {e}")
-```
-
-## Troubleshooting
-
-### "iga-cli.exe not found"
-- Build the CLI first: `dotnet build CLI.csproj -c Release`
-- Check the exe exists at: `bin/Release/net6.0/win-x64/iga-cli.exe`
-
-### "Command timeout"
-- Increase timeout for large files: `IGAExtractor(timeout=1200)`
-- Large archives may take longer to extract
-
-### "Permission denied" on output directory
-- Ensure output directory is writable
-- Try using absolute path: `/output` → `C:\full\path\output`
-
-## Future Enhancements
-
-- [ ] IGZ texture export support
-- [ ] Streaming extract for huge files
-- [ ] Multi-threaded extraction  
-- [ ] Cross-platform build (.NET)
-- [ ] Rate limiting for system stability
-
-## Contributing
-
-To improve CLI performance or add features:
-1. Edit `Program_CLI.cs` or improve `iga_wrapper.py`
-2. Test with: `dotnet build CLI.csproj -c Release`
-3. Verify with real game files
-
-## License
-
-Same as igArchiveExtractor project
+* Improve performance by using multithreading
+* Make the table green
+* Bring back text viewing and maybe text editing
