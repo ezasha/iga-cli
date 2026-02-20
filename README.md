@@ -25,19 +25,19 @@ This repository is now trimmed to keep only files required to build and run the 
 
 ## Game Mapping Status
 
-### Validated
-- `SkylandersSpyrosAdventureWii`
-- `SkylandersSpyrosAdventureWiiU`
-- `SkylandersSwapForce`
-- `SkylandersTrapTeam`
-- `SkylandersSuperChargers`
-- `SkylandersImaginatorsPS4`
-
-### Experimental fallback
-- `SkylandersLostIslands`
-- `CrashNST`
-
-> The tool still tries experimental mappings during auto-detect fallback, but they are not marked as validated.
+- `Skylanders Spyro's Adventure (3DS/Wii)`
+- `Skylanders Spyro's Adventure (Wii U)`
+- `Skylanders Giants (3DS)`
+- `Skylanders Giants (Home Console)`
+- `Skylanders Giants (Home Console Alpha)`
+- `Skylanders Swap Force (3DS)`
+- `Skylanders Swap Force (Home Console)`
+- `Skylanders Swap Force (Home Console Alpha)`
+- `Skylanders Trap Team (3DS)`
+- `Skylanders Trap Team (Home Console)`
+- `Skylanders SuperChargers`
+- `Skylanders Imaginators (PS3/X360/Wii U)`
+- `Skylanders Imaginators (PS4)`
 
 ## Requirements
 
@@ -132,7 +132,3 @@ subprocess.run([exe, "igz-extract-images", "level.bld", "out_images"], check=Tru
 - `bin/` and `obj/` are generated automatically and ignored by Git.
 - If publish fails with file lock (`iga-cli.exe in use`), close running instances and republish.
 - Console scrollback clearing behavior can depend on the host terminal.
-
----
-
-Project mode: CLI-focused, GUI legacy removed.
