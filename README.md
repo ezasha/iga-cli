@@ -1,8 +1,6 @@
 # igArchiveExtractor CLI (Interactive CMD + Command Line)
 
-A lightweight .NET 6 Windows CLI tool to inspect and extract Skylanders-style archives and IGZ textures.
-
-This repository is now trimmed to keep only files required to build and run the current CLI version.
+A lightweight .NET 6 Windows CLI tool to inspect and extract Skylanders archives and IGZ textures.
 
 ## Features
 
@@ -132,3 +130,7 @@ subprocess.run([exe, "igz-extract-images", "level.bld", "out_images"], check=Tru
 - `bin/` and `obj/` are generated automatically and ignored by Git.
 - If publish fails with file lock (`iga-cli.exe in use`), close running instances and republish.
 - Console scrollback clearing behavior can depend on the host terminal.
+
+## Credits
+Adapted by ezasha
+Original : https://github.com/NefariousTechSupport/igArchiveExtractor
