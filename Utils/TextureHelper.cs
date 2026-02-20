@@ -2,13 +2,11 @@ using BCnEncoder.Decoder;
 using BCnEncoder.Encoder;
 using BCnEncoder.ImageSharp;
 using Microsoft.Toolkit.HighPerformance;
+using System.Drawing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using IGAE_GUI.GX2Utils;
-using static System.Windows.Forms.DataFormats;
-using static System.Net.Mime.MediaTypeNames;
-
 namespace IGAE_GUI.Utils {
     public static class TextureHelper {
         private static readonly byte[] DdsHeader = {

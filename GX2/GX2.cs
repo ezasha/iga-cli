@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace IGAE_GUI.GX2Utils
+﻿namespace IGAE_GUI.GX2Utils
 {
     public class GX2
     {

@@ -352,6 +352,8 @@ namespace IGAE_GUI
 						//I don't know why either.
 						//We're just gonna subtract 2 from the size and start at localFileHeaders[index].startingAddress + 4 so as not to break compatibility with any programs
 
+						stream.BaseStream.Seek(localFileHeaders[index].startingAddress, SeekOrigin.Begin);
+
 						uint size = stream.ReadUInt16(StreamHelper.Endianness.Little) - 2u;
 
 						stream.BaseStream.Seek(0x02, SeekOrigin.Current);
@@ -383,7 +385,15 @@ namespace IGAE_GUI
 					}
 					break;
 				default:
-					res = -1;
+					Console.WriteLine($"Unknown compression mode 0x{(localFileHeaders[index].mode >> 24):X02}, falling back to raw copy");
+					stream.BaseStream.Seek(localFileHeaders[index].startingAddress, SeekOrigin.Begin);
+					byte[] fallbackBuffer = stream.ReadBytes((int)localFileHeaders[index].size);
+					output.Write(fallbackBuffer, 0x00, fallbackBuffer.Length);
+					if(!leaveOpen)
+					{
+						output.Close();
+					}
+					res = 0;
 					break;
 			}
 		}

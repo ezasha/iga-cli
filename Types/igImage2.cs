@@ -24,6 +24,8 @@ namespace IGAE_GUI.Types
 		uint textureSize;
         bool mode;
 
+        public uint TextureSize => textureSize;
+
         public igImage2(igObject basic)
 		{
 			_container = basic._container;

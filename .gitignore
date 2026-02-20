@@ -1,21 +1,30 @@
-# Exclude visual studio files
-
-.vs
+# IDE files
+.vs/
+.vscode/
+.idea/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
 
-# Exclude compiled files
+# Build outputs
+bin/
+obj/
+publish/
+publish-*/
+TestResults/
 
-bin
-obj
+# Runtime/debug artifacts
+*.pdb
+*.log
 
-# Exclude game files 
-
+# Local game/sample archives (not source code)
 *.arc
 *.bld
 *.pak
+*.iga
+*.igz
 
-# Rider and other Jetbrains IDE's Cache files
-.idea/
+# Python cache
+__pycache__/
+*.pyc

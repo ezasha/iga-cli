@@ -1,104 +1,138 @@
-# igArchiveExtractor
+# igArchiveExtractor CLI (Interactive CMD + Command Line)
 
-![igArchiveExtractor Logo](https://raw.githubusercontent.com/NefariousTechSupport/igArchiveExtractor/no-msbuild/igae.ico)
+A lightweight .NET 6 Windows CLI tool to inspect and extract Skylanders-style archives and IGZ textures.
 
-**igArchiveExtractor IS DISCONTINUED, THIS REPO WILL REMAIN OPEN UNTIL A GOOD ALTERNATIVE ARRIVES, NO NEW FEATURES WILL BE ADDED**
+This repository is now trimmed to keep only files required to build and run the current CLI version.
 
-A GUI tool for extracting files from .arc/.bld/.pak files from various games made with the Vicarious Visions Alchemy game engine
+## Features
 
-Join The [Skylander Reverse Engineering Discord Server](https://discord.gg/evFbgBpmMf) for help and updates!
+- Interactive CMD menu (`L / E / S / G / H / Q`)
+- Windows file/folder dialogs in interactive mode
+- Archive operations:
+  - List files (`index`, `size`, `path`)
+  - Extract all files
+  - Extract a single file by index (with pre-listing)
+- IGZ texture operations:
+  - List image entries (`index`, `size`, `dimensions`, `name`)
+  - Extract images to PNG
+  - Uses real IGZ names when available, normalized for Windows filenames
+- Colored console output for status/success/errors
 
+## Supported Inputs
 
-## Usage
+- Archives: `.arc`, `.bld`, `.pak`, `.iga`
+- IGZ textures: `.igz` and IGZ-based `level.bld`
 
-### General Use:
+## Game Mapping Status
 
-* Start the program
-* Load a file using the "File > Load File", then select the game and platform you wish to open
-* Navigate to the file you want to extract and click "Extract File" or just click "Extract All"
-* Select an output folder
-* Wait
+### Validated
+- `SkylandersSpyrosAdventureWii`
+- `SkylandersSpyrosAdventureWiiU`
+- `SkylandersSwapForce`
+- `SkylandersTrapTeam`
+- `SkylandersSuperChargers`
+- `SkylandersImaginatorsPS4`
 
-### To Rebuild IGA Files:
+### Experimental fallback
+- `SkylandersLostIslands`
+- `CrashNST`
 
-* Once a file is laoded, extract all to the same folder the IGA is in.
-* Navigate to File > Build.
-* From the build window you can save the settings as a CSV, once you save you can close IGAE.
-* Edit the extracted files with your desired changes.
-* Once happy with your edits, reopen IGAE, navigate to File > Build, and load the CSV.
-* Click Build, select your destination, and you'll have an IGA file.
+> The tool still tries experimental mappings during auto-detect fallback, but they are not marked as validated.
 
-### To Extract Textures:
+## Requirements
 
-* Once a file is loaded, find a texture or level.bld and double click it, alternatively, open an igz/level.bld directly.
-* You'll be presented with the igz viewer, find an object of type igImage2 and you'll see a preview and an option to extract.
+- Windows 10/11 (or compatible Windows console host)
+- .NET 6 Runtime installed on target machine
+- SDK only needed for development/build
 
-### To Replace Textures:
+## Build (Development)
 
-* Once a file is loaded, find a texture or level.bld and double click it, alternatively, open an igz/level.bld directly.
-* You'll be presented with the igz viewer, find an object of type igImage2 and you'll see a preview and an option to replace.
-* If you opened an iga initially, save the igz and replace the original level.bld and rebuild.
-* If you opened an igz directly, your changes save automatically.
+From repository root:
 
-If you're on mac or linux use wine but idk if that works
+```powershell
+dotnet restore .\CLI.csproj
+dotnet build .\CLI.csproj -c Release
+```
 
-### Features & Games:
-| Game | Platform | Extracting IGA Files | Rebuilding IGA Files | Texture Extraction | Texture Replacement |
-|---|---|---|---|---|---|
-| Skylanders Spyro's Adventure | 3DS | ❌ | ❌ | ❌ | ❌ |
-| | Wii | ✅ | ❌ | ✅ | ✅ |
-| | Wii U | ✅ | ✅ | ✅ | ✅ |
-| Skylanders Giants | 3DS | ❌ | ❌ | ❌ | ❌ |
-| | Wii | ✅ | ✅ | ✅ | ✅ |
-| | Wii U | ✅ | ✅ | ✅ | ✅ |
-| | PS3 | ✅ | ✅ | ✅ | ✅ |
-| | Xbox 360 | ✅ | ✅ | ❓ | ❓ |
-| Skylanders Swap Force | 3DS | ❌ | ❌ | ❌ | ❌ |
-| | Wii | ✅ | ❓ | ✅ | ✅ |
-| | Wii U | ✅ | ✅ | ✅ | ✅ |
-| | PS3 | ✅ | ✅ | ✅ | ✅ |
-| | PS4 | ✅ | ❓ | ❓ | ❓ |
-| | Xbox 360 | ❌ | ❌ | ❓ | ❓ |
-| Skylanders Trap Team | 3DS | ❌ | ❌ | ❌ | ❌ |
-| | Wii | ✅ | ✅ | ✅ | ✅ |
-| | Wii U | ✅ | ✅ | ✅ | ✅ |
-| | PS3 | ✅ | ✅ | ✅ | ✅ |
-| | PS4 | ✅ | ✅ | ❓ | ❓ |
-| | Xbox 360 | ✅ | ✅ | ❓ | ❓ |
-| Skylanders Superchargers | Wii U | ✅ | ✅ | ✅ | ✅ |
-| | PS3 | ✅ | ✅ | ✅ | ✅ |
-| | PS4 | ✅ | ✅ | ❓ | ❓ |
-| | Xbox 360 | ❌ | ❌ | ❓ | ❓ |
-| | 32 bit iOS | ✅ | ❓ | ❓ | ❓ |
-| | 64 bit iOS | ✅ | ❓ | ❌ | ❌ |
-| Skylanders Imaginators | PS4 | ✅ | ❌ | ❌ | ❌ |
-| | PS3 | ✅ | ✅ | ✅ | ✅ |
-| | Xbox 360 | ❌ | ❌ | ❌ | ❌ |
-| | Wii U | ✅ | ✅ | ✅ | ✅ |
-| | Switch | ✅ | ❌ | ❌ | ❌ |
+## Publish (Recommended lightweight package)
 
-* select Trap Team Home Console for SSC iOS and select Imaginators PS4 for Imaginators Switch
+```powershell
+dotnet publish .\CLI.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o .\publish-lite
+```
 
-## Building
-### Prerequisites
-* Mac OS: no
-* Linux: no
-* Windows: dotnet 5.0 + visual studio
+Output files (expected):
+- `publish-lite/iga-cli.exe`
+- `publish-lite/iga-cli.dll.config`
+- optional debug symbol if enabled
 
-### How to Build
-* Open the sln file in visual studio, and press ctrl + b to build, alternatively press f5 to build (if neccessary) and run
+## Run
 
-## Credits
-* DTZxPorter: Figured out the HashSearch and CalculateSlop functions
-* AdventureT: Texture Extraction code adapted from [IGZModelConverter](https://github.com/AdventureT/IgzModelConverter). Figured out that the games use FNV1A32 on their hashes
-* LG-RZ: Explained certain aspects of IGA + IGZ files. Provided final RVTB ReadPackedInt code
-* Drawdler: Drew the logo :)
-* KillzXGaming: Referenced [IGA_PAK.cs](https://github.com/KillzXGaming/Switch-Toolbox/blob/master/File_Format_Library/FileFormats/CrashBandicoot/IGA_PAK.cs) when making this
-* SixLabours: ImageSharp library was used for texture previews and also texture importing
-* Nominom: BCnEncoder was used for texture previews and also texture importing 
+### Interactive mode (recommended)
 
-## To Do
+```powershell
+.\publish-lite\iga-cli.exe
+```
 
-* Improve performance by using multithreading
-* Make the table green
-* Bring back text viewing and maybe text editing
+### Command mode
+
+```powershell
+# List archive files
+.\publish-lite\iga-cli.exe list "game.bld" --game SkylandersTrapTeam
+
+# Extract all files
+.\publish-lite\iga-cli.exe extract "game.bld" "out" --game SkylandersTrapTeam
+
+# Extract one file by index
+.\publish-lite\iga-cli.exe extract-single "game.bld" 12 "out" --game SkylandersTrapTeam
+
+# List IGZ images
+.\publish-lite\iga-cli.exe igz-list-images "level.bld"
+
+# Extract IGZ images to PNG
+.\publish-lite\iga-cli.exe igz-extract-images "level.bld" "out_images"
+
+# Show game mappings
+.\publish-lite\iga-cli.exe list-games
+```
+
+## Interactive Menu
+
+When started without arguments:
+
+- `L` List archive contents
+- `E` Extract all files (or IGZ images)
+- `S` Extract single archive file
+- `G` Show game mapping list
+- `H` Help page (CLI + Python examples)
+- `Q` Quit
+
+## Python Usage (example via subprocess)
+
+```python
+import subprocess
+
+exe = r"publish-lite\iga-cli.exe"
+subprocess.run([exe, "list", "game.bld", "--game", "SkylandersTrapTeam"], check=True)
+subprocess.run([exe, "igz-extract-images", "level.bld", "out_images"], check=True)
+```
+
+## Repository Layout (kept intentionally minimal)
+
+- `CLI.csproj` - active project
+- `Program_CLI.cs` - entrypoint + interactive/CLI logic
+- `StreamHelper.cs`
+- `IGA/`, `IGZ/`, `Types/`, `Utils/`, `GX2/` - parsing and texture logic
+- `igae.ico` - executable icon
+- `build.ps1` - helper build/publish script
+- `igArchiveExtractor-open-source.sln` - solution pointing to CLI project
+- `.gitignore`, `.gitattributes`, `LICENSE`
+
+## Notes
+
+- `bin/` and `obj/` are generated automatically and ignored by Git.
+- If publish fails with file lock (`iga-cli.exe in use`), close running instances and republish.
+- Console scrollback clearing behavior can depend on the host terminal.
+
+---
+
+Project mode: CLI-focused, GUI legacy removed.
